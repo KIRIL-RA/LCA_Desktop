@@ -7,11 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Model_web_interfeysa.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Images\file_bar\103090.png" />
+    <Resource Include="Model_web_interfeysa.png" />
   </ItemGroup>
 
 </Project>
