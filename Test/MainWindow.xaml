@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Test"
         mc:Ignorable="d"
-        Title="LCA" Height="515" Width="800" MinWidth="800" MinHeight="45" Icon="/Images/Icon/Icon.png">
+        Title="LCA" Height="515" Width="800" MinWidth="800" MinHeight="45" Icon="/Icon.png">
     <Window.Resources >
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
