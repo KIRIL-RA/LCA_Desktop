@@ -210,6 +210,20 @@
             </Setter>
         </Style>
         <Style x:Key="InfoBlockStyle" TargetType="{x:Type Grid}"/>
+        <Storyboard x:Key="Error_message_up">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Error_message" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.4000000" Value="-66">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
     <Grid AllowDrop="True" Drop="Drop_file" DragEnter="Drop_enter" DragLeave="Drop_over" Background="Transparent">
         <Grid x:Name="LCA_Label">
@@ -355,5 +369,16 @@
             <Label Content="KIRILL-RA, 2021, ONLY FOR NON-COMMERCIAL USE" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" FontWeight="Bold"/>
         </Grid>
         <Border x:Name="File_drop" BorderThickness="1" Background="#36000000" Visibility="Hidden"/>
+        <Border x:Name="Error_message" BorderThickness="1" Margin="1,0,1,-37" Height="23" VerticalAlignment="Bottom" Background="#FFE20202" CornerRadius="5,5,5,5" RenderTransformOrigin="0.5,0.5">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Border.RenderTransform>
+            <Label x:Name="Error_text" Content="Error message&#xD;&#xA;" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0,0,0,1" FontWeight="Bold" BorderThickness="0,2,0,0"/>
+        </Border>
     </Grid>
 </Window>

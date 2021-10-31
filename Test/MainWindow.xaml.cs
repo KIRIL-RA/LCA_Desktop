@@ -4,6 +4,8 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using Test.Classes;
 using System.Diagnostics;
+using System.Windows.Media.Animation;
+using System.Timers;
 using System.Collections.Generic;
 
 namespace Test
@@ -14,11 +16,13 @@ namespace Test
     public partial class MainWindow : Window
     {
         ReadPickAnalizeFile csvPickedFile;
+        Storyboard Error_message_up;
+        Timer stopTimer;
 
         public MainWindow()
         {
             InitializeComponent();
-
+            Error_message_up = (Storyboard)this.Resources["Error_message_up"];
             csvPickedFile = new ReadPickAnalizeFile();
         }
 
@@ -59,16 +63,38 @@ namespace Test
              */
             Trace.WriteLine("-- File choosed succesful: " + fileName);
 
-            File_not_selected1.Visibility = Visibility.Hidden;
-            File_not_selected.Visibility = Visibility.Hidden;
-            File_selected.Visibility = Visibility.Visible;
-            File_name.Content = fileName;
+            if (csvPickedFile.Read_File(fileName))
+            {
+                if (csvPickedFile.Parse_File())
+                {
+                    if (csvPickedFile.Analize())
+                    {
+                        File_not_selected1.Visibility = Visibility.Hidden;
+                        File_not_selected.Visibility = Visibility.Hidden;
+                        File_selected.Visibility = Visibility.Visible;
+                        File_name.Content = fileName;
+                        Show_data();
+                    }
+                    else Show_error("Error analize file");
+                }
+                else Show_error("Error parse file");
+            }
+            else Show_error("Error read file");
+        }
 
-            csvPickedFile.Read_File(fileName);
-            csvPickedFile.Parse_File();
-            csvPickedFile.Analize();
+        private void Show_error(string message_text)
+        {
+            /*
+             * Show error message
+             */
+            Error_message_up.Begin();
+            Error_text.Content = message_text;
+            Trace.WriteLine(message_text);
 
-            Show_data();
+            if (stopTimer != null) stopTimer.Enabled = false;
+            stopTimer = new Timer(2000);
+            stopTimer.Elapsed += delegate { Error_message_up.Stop(); };
+            stopTimer.Enabled = true;
         }
 
         private void Select_file()

@@ -69,11 +69,18 @@ namespace Test.Classes
             /*
              * Function for reading choosed file
              */
-            lines = System.IO.File.ReadAllLines(fileName);
-            lines_count = lines.Length;
-            Trace.WriteLine("-- Readed " + lines_count + " lines");
+            try
+            {
+                lines = System.IO.File.ReadAllLines(fileName);
+                lines_count = lines.Length;
+                Trace.WriteLine("-- Readed " + lines_count + " lines");
 
-            return true;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool Parse_File()
@@ -91,12 +98,12 @@ namespace Test.Classes
                 analized_file[line].Date = data[0];
                 try
                 {
-                    analized_file[line].Machine_state = Int32.Parse(data[1]);
-                    analized_file[line].Laser_state = Int32.Parse(data[2]);
+                    analized_file[line].Machine_state = int.Parse(data[1]);
+                    analized_file[line].Laser_state = int.Parse(data[2]);
                 }
-                catch (FormatException e)
+                catch
                 {
-                    Trace.WriteLine("-- Error parse: " + e.Message);
+                    Trace.WriteLine("-- Error parse");
                     return false;
                 }
             }
